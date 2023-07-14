@@ -9,7 +9,11 @@ import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
+import postRoutes from "./routes/posts.js";
 import { register } from "./controllers/auth.js";
+import { createPost } from "./controllers/posts.js";
+import { verifyToken } from "./middleware/auth.js";
 
 /* MIDDLEWARE CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
@@ -39,13 +43,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }); // used in POST requests of handling a multipart form to upload file
 
 /* ROUTES WITH FILES */ // this is why we don't create seperate route files because we need the "upload" constant
-app.post("/auth/register", upload.single("picture"), register); // req.file is the `picture` file and req.body will hold the text fields. This is the picture uploaded during registering.
-//app.post("/posts", verifyToken, upload.single("picture"), createPost);
+app.post("/auth/register", upload.single("picture"), register); // req.file is the `picture` file (http call front end) and req.body will hold the text fields. This is the picture uploaded during registering.
+app.post("/posts", verifyToken, upload.single("picture"), createPost);
 
 /* ROUTES */
 app.use("/auth", authRoutes);
-// app.use("/users", userRoutes);
-// app.use("/posts", postRoutes);
+app.use("/users", userRoutes);
+app.use("/posts", postRoutes);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
