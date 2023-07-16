@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// this is basically a global store (or state) that all components can use
+// if we wanna grab anything from the store, just use function useSelector from redux
 const initialState = {
   mode: "light",
   user: null,
