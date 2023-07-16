@@ -39,11 +39,16 @@ const Navbar = () => {
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
 
-  //const fullName = `${user.firstName} ${user.lastName}`;
-  const fullName = "Andy Tran";
+  const fullName = `${user.firstName} ${user.lastName}`;
+  //const fullName = "Andy Tran";
 
   return (
-    <FlexBetween padding="1rem 6%" backgroundColor={alt}>
+    <FlexBetween
+      padding="1rem 6%"
+      backgroundColor={
+        alt
+      } /* the use of this FlexBetween box is to make all the elements in it lie horizontally */
+    >
       <FlexBetween gap="1.75rem">
         <Typography
           fontWeight="bold"
