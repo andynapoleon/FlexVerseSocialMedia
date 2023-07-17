@@ -16,14 +16,14 @@ function App() {
   return (
     <div className="app">
       <BrowserRouter>
-        <CssBaseline /* this resets css, resets the styling of all HTML elements to a consistent baseline */
-        />
         <ThemeProvider
           theme={
             theme
-          } /* we're gonna use this theme throughout our application using useTheme() from mui*/
+          } /* we're gonna use this theme throughout our application using useTheme() from mui */
         >
           {/* this is how we set routes for different scences of our application */}
+          <CssBaseline /* this resets css, resets the styling of all HTML elements to a consistent baseline */
+          />
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route

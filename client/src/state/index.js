@@ -32,7 +32,7 @@ export const authSlice = createSlice({
       }
     },
     setPosts: (state, action) => {
-      state.posts = action.payload.posts;
+      state.posts = action.payload.posts; // state of posts being displayed on screen at a specific time
     },
     setPost: (state, action) => {
       const updatedPosts = state.posts.map((post) => {

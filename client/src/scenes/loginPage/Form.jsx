@@ -89,7 +89,7 @@ const Form = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values), // pass the values in directly (values are already formatted in the correct way!)
     });
-    const loggedIn = await loggedInResponse.json(); // get res from back-end
+    const loggedIn = await loggedInResponse.json(); // get res from back-end as JSON object (two props: user and token)
     onSubmitProps.resetForm();
     if (loggedIn) {
       dispatch(
