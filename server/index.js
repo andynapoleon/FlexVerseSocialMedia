@@ -1,19 +1,21 @@
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-import cors from "cors";
-import dotenv from "dotenv";
-import multer from "multer";
-import helmet from "helmet";
-import morgan from "morgan";
+import cors from "cors"; // cross-origin resource sharing
+import dotenv from "dotenv"; // use environment vars
+import multer from "multer"; // file uploading to disk storage
+import helmet from "helmet"; // security on the API
+import morgan from "morgan"; // give info everytime API gets called
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "url"; // change from URL to directory path
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
 import { register } from "./controllers/auth.js";
 import { createPost } from "./controllers/posts.js";
 import { verifyToken } from "./middleware/auth.js";
+import { Configuration, OpenAIApi } from "openai";
+import openAiRoutes from "./routes/openai.js";
 // import User from "./models/User.js";
 // import Post from "./models/Post.js";
 // import { users, posts } from "./data/index.js";
@@ -31,6 +33,12 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "public/assets"))); // serves statics files like images, ... inside the specified folder
+
+/* OPENAI CONFIGURATIONS */
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+export const openai = new OpenAIApi(configuration); // call routes
 
 /* FILE STORAGE */
 const storage = multer.diskStorage({
@@ -53,6 +61,7 @@ app.post("/posts", verifyToken, upload.single("picture"), createPost);
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
+app.use("/openai", openAiRoutes);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
