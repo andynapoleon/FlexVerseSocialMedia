@@ -3,10 +3,12 @@ import HomePage from "scenes/homePage";
 import LoginPage from "scenes/loginPage";
 import ProfilePage from "scenes/profilePage";
 import { useMemo } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux"; // grab state
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
+import Chat from "scenes/chatPage";
 
 function App() {
   const mode = useSelector((state) => state.mode); // grab a property of state (here is mode)
@@ -34,6 +36,7 @@ function App() {
               path="/profile/:userId"
               element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
             />
+            <Route path="/chat" element={<Chat />}></Route>
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
