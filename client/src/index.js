@@ -37,7 +37,7 @@ const store = configureStore({
     }),
 });
 
-// CREATING SECOND STORE
+// CREATING SECOND STORE FOR THE OPENAI API
 const chatGPT = React.createContext();
 
 export const useCustomDispatch = createDispatchHook(chatGPT);
