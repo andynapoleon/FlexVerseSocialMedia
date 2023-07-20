@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import axios from "axios";
 import User from "../models/User.js";
 
 /* REGISTER USER */
@@ -20,6 +21,18 @@ export const register = async (req, res) => {
     // Password salting and hashing
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
+
+    // register user on Chat Engine
+    const chatEngineResponse = await axios.post(
+      "https://api.chatengine.io/users/",
+      {
+        username: email,
+        secret: passwordHash,
+      },
+      {
+        headers: { "Private-Key": process.env.PRIVATE_KEY },
+      }
+    );
 
     const newUser = new User({
       firstName,
@@ -44,15 +57,17 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    console.log(email);
+
     const user = await User.findOne({ email: email });
     if (!user) return res.status(400).json({ msg: "User does not exist. " });
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials. " });
 
-    console.log("Here");
-
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET); // creating the token to send to the front-end, the client will send this along in the next requests so the server knows that they're trustworthy (authorization)
+
     delete user.password; // delete the password so it's not sent to the front-end (delete from the User object)
     res.status(200).json({ token, user }); // send the token and the user object to the front-end as a JSON OBJECTs
   } catch (err) {

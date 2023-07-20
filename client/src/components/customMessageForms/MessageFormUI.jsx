@@ -24,12 +24,12 @@ const MessageFormUI = ({
             alt="message-form-preview"
             className="message-form-preview-image"
             src={preview}
-            onLoad={() => URL.revokeObjectURL(preview)} // image that holds the preview image
+            onLoad={() => URL.revokeObjectURL(preview)}
           />
           <XMarkIcon
             className="message-form-icon-x"
             onClick={() => {
-              setPreview(""); // remove preview if clicked
+              setPreview("");
               setAttachment("");
             }}
           />
@@ -41,7 +41,7 @@ const MessageFormUI = ({
             className="message-form-input"
             type="text"
             value={message}
-            onChange={handleChange} // just set the state (message) to whatever being typed in
+            onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder="Send a message..."
           />
@@ -69,14 +69,14 @@ const MessageFormUI = ({
                 <input {...getInputProps()} />
                 <PaperClipIcon
                   className="message-form-icon-clip"
-                  onClick={open} // open File so we can drop in an image
+                  onClick={open}
                 />
               </div>
             )}
           </Dropzone>
 
           <hr className="vertical-line" />
-          <PaperAirplaneIcon // send message
+          <PaperAirplaneIcon
             className="message-form-icon-airplane"
             onClick={() => {
               setPreview("");

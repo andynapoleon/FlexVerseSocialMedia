@@ -75,6 +75,7 @@ const Form = () => {
         body: formData, // send it to the back-end
       }
     );
+
     const savedUser = await savedUserResponse.json(); // waiting for the response from the back-end
     onSubmitProps.resetForm(); // onSubmitProps has some functions from Formik that we can use - resetForm() is one of them!
 
@@ -89,6 +90,12 @@ const Form = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values), // pass the values in directly (values are already formatted in the correct way!)
     });
+
+    // await fetch("http://localhost:3001/auth/registerChat", {
+    //   method: "POST",
+    //   body: JSON.stringify(values), // send it to the back-end
+    // });
+
     const loggedIn = await loggedInResponse.json(); // get res from back-end as JSON object (two props: user and token)
     onSubmitProps.resetForm();
     if (loggedIn) {

@@ -3,7 +3,6 @@ import HomePage from "scenes/homePage";
 import LoginPage from "scenes/loginPage";
 import ProfilePage from "scenes/profilePage";
 import { useMemo } from "react";
-import { useState } from "react";
 import { useSelector } from "react-redux"; // grab state
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
@@ -12,6 +11,7 @@ import Chat from "scenes/chatPage";
 
 function App() {
   const mode = useSelector((state) => state.mode); // grab a property of state (here is mode)
+  const user = useSelector((state) => state.user);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]); // create theme based on state.mode (dark or light) ONLY when needed (useMemo())
   const isAuth = Boolean(useSelector((state) => state.token)); // set to True if the token exists
 
@@ -36,7 +36,16 @@ function App() {
               path="/profile/:userId"
               element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
             />
-            <Route path="/chat" element={<Chat />}></Route>
+            <Route
+              path="/chat"
+              element={
+                isAuth ? (
+                  <Chat user={user.email} secret={user.password} />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            ></Route>
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

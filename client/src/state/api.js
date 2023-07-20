@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   // a section of the store in redux
   baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_BASE_URL }), // base URL
-  reducerPath: "main", // name of the slides
+  reducerPath: "main", // name of the slice
   tagTypes: [], // where to save data (we don't need it)
   // the endpoints mean we're creating functions that will call the APIs, therefore, we need to export these functions
   endpoints: (build) => ({

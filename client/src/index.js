@@ -5,9 +5,6 @@ import App from "./App";
 import authReducer from "./state";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import { setupListeners } from "@reduxjs/toolkit/query";
-import { api } from "state/api";
-import { createDispatchHook, createSelectorHook } from "react-redux";
 
 import {
   persistStore,
@@ -37,28 +34,14 @@ const store = configureStore({
     }),
 });
 
-// CREATING SECOND STORE FOR THE OPENAI API
-const chatGPT = React.createContext();
-
-export const useCustomDispatch = createDispatchHook(chatGPT);
-export const useCustomSelector = createSelectorHook(chatGPT);
-
-export const customStore = configureStore({
-  reducer: { [api.reducerPath]: api.reducer },
-  middleware: (getDefault) => getDefault().concat(api.middleware),
-});
-setupListeners(customStore.dispatch);
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Provider store={customStore} context={chatGPT}>
-        {/* persist state */}
-        <PersistGate loading={null} persistor={persistStore(store)}>
-          <App />
-        </PersistGate>
-      </Provider>
+      {/* persist state */}
+      <PersistGate loading={null} persistor={persistStore(store)}>
+        <App />
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

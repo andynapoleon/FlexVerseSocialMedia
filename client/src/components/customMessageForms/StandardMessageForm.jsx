@@ -8,11 +8,11 @@ const StandardMessageForm = ({ props, activeChat }) => {
   const handleChange = (e) => setMessage(e.target.value);
 
   const handleSubmit = async () => {
-    const date = new Date() // get the date
+    const date = new Date()
       .toISOString()
       .replace("T", " ")
       .replace("Z", `${Math.floor(Math.random() * 1000)}+00:00`);
-    const at = attachment ? [{ blob: attachment, file: attachment.name }] : []; // if we have an attachment, we have to format it like tehis
+    const at = attachment ? [{ blob: attachment, file: attachment.name }] : [];
     const form = {
       attachments: at,
       created: date,
@@ -21,9 +21,9 @@ const StandardMessageForm = ({ props, activeChat }) => {
       activeChatId: activeChat.id,
     };
 
-    props.onSubmit(form); // submit to the back-end - SEND THE MESSAGE
-    setMessage(""); // empty out the message
-    setAttachment(""); // empty out the attachment
+    props.onSubmit(form);
+    setMessage("");
+    setAttachment("");
   };
 
   return (
