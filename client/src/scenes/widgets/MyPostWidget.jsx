@@ -4,8 +4,6 @@ import {
   AttachFileOutlined,
   GifBoxOutlined,
   ImageOutlined,
-  MicOutlined,
-  MoreHorizOutlined,
 } from "@mui/icons-material";
 import {
   Box,
@@ -15,7 +13,6 @@ import {
   useTheme,
   Button,
   IconButton,
-  useMediaQuery,
 } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import Dropzone from "react-dropzone";
@@ -54,6 +51,12 @@ const MyPostWidget = ({ picturePath }) => {
     if (image) {
       formData.append("picture", image);
       formData.append("picturePath", image.name);
+    } else if (clip) {
+      formData.append("picture", clip);
+      formData.append("picturePath", clip.name);
+    } else if (at) {
+      formData.append("picture", at);
+      formData.append("picturePath", at.name);
     }
 
     const response = await fetch(`http://localhost:3001/posts`, {
@@ -64,8 +67,21 @@ const MyPostWidget = ({ picturePath }) => {
     const posts = await response.json();
     dispatch(setPosts({ posts }));
     setImage(null);
+    setClip(null);
+    setAt(null);
     setPost("");
   };
+
+  function handleDropzone(
+    firstDrop,
+    setFirstDrop,
+    setSecondDrop,
+    setThirdDrop
+  ) {
+    setFirstDrop(!firstDrop);
+    setSecondDrop(false);
+    setThirdDrop(false);
+  }
 
   return (
     <WidgetWrapper>
@@ -139,7 +155,7 @@ const MyPostWidget = ({ picturePath }) => {
           p="1rem"
         >
           <Dropzone
-            acceptedFiles=".jpg,.jpeg,.png"
+            acceptedFiles=".mp4"
             multiple={false}
             onDrop={(acceptedFiles) => setClip(acceptedFiles[0])} // set image's state to whatever the user put in
           >
@@ -185,7 +201,7 @@ const MyPostWidget = ({ picturePath }) => {
           p="1rem"
         >
           <Dropzone
-            acceptedFiles=".jpg,.jpeg,.png"
+            acceptedFiles=".pdf"
             multiple={false}
             onDrop={(acceptedFiles) => setAt(acceptedFiles[0])} // set image's state to whatever the user put in
           >
@@ -225,7 +241,12 @@ const MyPostWidget = ({ picturePath }) => {
       <Divider sx={{ margin: "1.25rem 0" }} />
 
       <FlexBetween>
-        <FlexBetween gap="0.25rem" onClick={() => setIsImage(!isImage)}>
+        <FlexBetween
+          gap="0.25rem"
+          onClick={() =>
+            handleDropzone(isImage, setIsImage, setIsClip, setIsAt)
+          }
+        >
           <ImageOutlined sx={{ color: mediumMain }} />
           <Typography
             color={mediumMain}
@@ -235,14 +256,30 @@ const MyPostWidget = ({ picturePath }) => {
           </Typography>
         </FlexBetween>
 
-        <FlexBetween gap="0.25rem" onClick={() => setIsClip(!isClip)}>
+        <FlexBetween
+          gap="0.25rem"
+          onClick={() => handleDropzone(isClip, setIsClip, setIsImage, setIsAt)}
+        >
           <GifBoxOutlined sx={{ color: mediumMain }} />
-          <Typography color={mediumMain}>Clip</Typography>
+          <Typography
+            color={mediumMain}
+            sx={{ "&:hover": { cursor: "pointer", color: medium } }}
+          >
+            Clip
+          </Typography>
         </FlexBetween>
 
-        <FlexBetween gap="0.25rem" onClick={() => setIsAt(!isAt)}>
+        <FlexBetween
+          gap="0.25rem"
+          onClick={() => handleDropzone(isAt, setIsAt, setIsImage, setIsClip)}
+        >
           <AttachFileOutlined sx={{ color: mediumMain }} />
-          <Typography color={mediumMain}>Attachment</Typography>
+          <Typography
+            color={mediumMain}
+            sx={{ "&:hover": { cursor: "pointer", color: medium } }}
+          >
+            Attachment
+          </Typography>
         </FlexBetween>
 
         <Button
