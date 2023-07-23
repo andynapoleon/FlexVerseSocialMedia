@@ -11,7 +11,6 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import {
-  Search,
   Message,
   DarkMode,
   LightMode,
@@ -65,16 +64,10 @@ const Navbar = () => {
           FlexVerse 💪
         </Typography>
         {isNonMobileScreens && (
-          <FlexBetween
-            backgroundColor={neutralLight}
-            borderRadius="9px"
-            gap="3rem"
-            padding="0.1rem 1.5rem"
-          >
-            <InputBase placeholder="Search..." />
-            <IconButton>
-              <Search />
-            </IconButton>
+          <FlexBetween font-family="Rubik">
+            <Typography color={theme.palette.neutral.medium}>
+              Empower Your Fitness Journey, Together!
+            </Typography>
           </FlexBetween>
         )}
       </FlexBetween>
