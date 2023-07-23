@@ -47,6 +47,52 @@ const PostWidget = ({
     dispatch(setPost({ post: updatedPost }));
   };
 
+  const handleFileType = function (picturePath) {
+    if (picturePath) {
+      if (
+        picturePath.includes(".jpg") ||
+        picturePath.includes(".jpeg") ||
+        picturePath.includes(".png") ||
+        picturePath.includes(".JPG")
+      ) {
+        return (
+          <img
+            width="100%"
+            height="auto"
+            alt="post"
+            style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
+            src={`http://localhost:3001/assets/${picturePath}`}
+          />
+        );
+      } else if (picturePath.includes(".mp4")) {
+        return (
+          <video
+            width="100%"
+            height="auto"
+            alt="post"
+            style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
+            controls
+          >
+            <source
+              src={`http://localhost:3001/assets/${picturePath}`}
+              type="video/mp4"
+            ></source>
+          </video>
+        );
+      } else if (picturePath.includes(".pdf")) {
+        return (
+          <a
+            style={{ color: primary }}
+            href={`http://localhost:3001/assets/${picturePath}`}
+          >
+            {picturePath}
+          </a>
+        );
+      }
+    }
+    return null;
+  };
+
   return (
     <WidgetWrapper m="2rem 0">
       <Friend
@@ -58,15 +104,7 @@ const PostWidget = ({
       <Typography color={main} sx={{ mt: "1rem" }}>
         {description}
       </Typography>
-      {picturePath && ( // displaying profile pic and post pic
-        <img
-          width="100%"
-          height="auto"
-          alt="post"
-          style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`http://localhost:3001/assets/${picturePath}`}
-        />
-      )}
+      {handleFileType(picturePath)}
       <FlexBetween mt="0.25rem">
         <FlexBetween gap="1rem">
           {/* LIKES */}
