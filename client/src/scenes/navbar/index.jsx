@@ -64,7 +64,7 @@ const Navbar = () => {
           FlexVerse 💪
         </Typography>
         {isNonMobileScreens && (
-          <FlexBetween font-family="Rubik">
+          <FlexBetween fontFamily="Rubik">
             <Typography color={theme.palette.neutral.medium}>
               Empower Your Fitness Journey, Together!
             </Typography>

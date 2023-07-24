@@ -39,9 +39,10 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  console.log(posts);
+
   return (
     <>
-      {" "}
       {/* empty tag */}
       {posts.toReversed().map(
         ({
@@ -67,6 +68,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
             userPicturePath={userPicturePath}
             likes={likes}
             comments={comments}
+            isProfile={isProfile}
           />
         )
       )}

@@ -3,13 +3,23 @@ import {
   FavoriteBorderOutlined,
   FavoriteOutlined,
 } from "@mui/icons-material";
-import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Divider,
+  IconButton,
+  Typography,
+  useTheme,
+  InputBase,
+  Button,
+} from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
+import ClearIcon from "@mui/icons-material/Clear";
 import FlexBetween from "components/FlexBetween";
 import Friend from "components/Friend";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPost } from "state";
+import { setPost, setPosts } from "state";
 
 const PostWidget = ({
   postId,
@@ -21,8 +31,10 @@ const PostWidget = ({
   userPicturePath,
   likes,
   comments,
+  isProfile,
 }) => {
   const [isComments, setIsComments] = useState(false);
+  const [comment, setComment] = useState(""); // comment content
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const loggedInUserId = useSelector((state) => state.user._id);
@@ -45,6 +57,40 @@ const PostWidget = ({
     });
     const updatedPost = await response.json();
     dispatch(setPost({ post: updatedPost }));
+  };
+
+  // update comments from the back-end
+  const handleComment = async () => {
+    const response = await fetch(
+      `http://localhost:3001/posts/${postId}/comment`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ comment: comment }),
+      }
+    );
+    const updatedPost = await response.json();
+    dispatch(setPost({ post: updatedPost }));
+  };
+
+  // delete a post from the back-end
+  const deletePost = async () => {
+    const response = await fetch(
+      `http://localhost:3001/posts/${postId}/delete`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: loggedInUserId, isProfile: isProfile }),
+      }
+    );
+    const data = await response.json();
+    dispatch(setPosts({ posts: data }));
   };
 
   const handleFileType = function (picturePath) {
@@ -128,6 +174,13 @@ const PostWidget = ({
           </FlexBetween>
         </FlexBetween>
 
+        {/* DELETE POST BUTTON */}
+        {loggedInUserId === postUserId && (
+          <IconButton aria-label="delete" size="small" onClick={deletePost}>
+            <ClearIcon fontSize="inherit" />
+          </IconButton>
+        )}
+
         {/* COMMENTS section */}
       </FlexBetween>
       {isComments && (
@@ -141,6 +194,29 @@ const PostWidget = ({
             </Box>
           ))}
           <Divider />
+          <FlexBetween>
+            <InputBase
+              placeholder="What's on your mind..."
+              onChange={(e) => setComment(e.target.value)} // event.target.value => give it to the post
+              sx={{
+                width: "100%",
+                backgroundColor: palette.neutral.light,
+                borderRadius: "1rem",
+                mt: "1rem",
+                mb: "0.25rem",
+                padding: "0.25rem 1rem 0.25rem 1rem",
+              }}
+            />
+            <Button
+              disabled={!comment} // if the post is not "" (so user has typed in content already)
+              onClick={handleComment} // handle posting sx={{ mt: "0.75rem" }}
+              sx={{
+                mt: "0.75rem",
+              }}
+            >
+              <SendIcon />
+            </Button>
+          </FlexBetween>
         </Box>
       )}
     </WidgetWrapper>
