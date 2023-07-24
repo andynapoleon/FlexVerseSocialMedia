@@ -42,6 +42,8 @@ const initialValuesRegister = {
   location: "",
   occupation: "",
   picture: "",
+  split: "",
+  goal: "",
 };
 
 const initialValuesLogin = {
@@ -181,6 +183,30 @@ const Form = () => {
                   onChange={handleChange}
                   value={values.occupation}
                   name="occupation"
+                  error={
+                    Boolean(touched.occupation) && Boolean(errors.occupation)
+                  }
+                  helperText={touched.occupation && errors.occupation}
+                  sx={{ gridColumn: "span 4" }}
+                />
+                <TextField
+                  label="Current Workout Split"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.split}
+                  name="split"
+                  error={
+                    Boolean(touched.occupation) && Boolean(errors.occupation)
+                  }
+                  helperText={touched.occupation && errors.occupation}
+                  sx={{ gridColumn: "span 4" }}
+                />
+                <TextField
+                  label="Fitness Goal"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.goal}
+                  name="goal"
                   error={
                     Boolean(touched.occupation) && Boolean(errors.occupation)
                   }

@@ -1,10 +1,11 @@
 import {
-  ManageAccountsOutlined,
   EditOutlined,
   LocationOnOutlined,
   WorkOutlineOutlined,
 } from "@mui/icons-material";
-import { Box, Typography, Divider, useTheme } from "@mui/material";
+import { Box, Typography, Divider, useTheme, IconButton } from "@mui/material";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import SportsScoreIcon from "@mui/icons-material/SportsScore";
 import UserImage from "components/UserImage";
 import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
@@ -43,16 +44,13 @@ const UserWidget = ({ userId, picturePath }) => {
     return null; // make sure that it is not going to error out
   }
 
-  const { firstName, lastName, location, occupation, friends } = user; // destructure items from User
+  const { firstName, lastName, location, occupation, friends, split, goal } =
+    user; // destructure items from User
 
   return (
     <WidgetWrapper>
       {/* FIRST ROW */}
-      <FlexBetween
-        gap="0.5rem"
-        pb="1.1rem"
-        onClick={() => navigate(`/profile/${userId}`)}
-      >
+      <FlexBetween gap="0.5rem" pb="1.1rem">
         <FlexBetween gap="1rem">
           <UserImage image={picturePath} />
           <Box>
@@ -66,13 +64,16 @@ const UserWidget = ({ userId, picturePath }) => {
                   cursor: "pointer",
                 },
               }}
+              onClick={() => navigate(`/profile/${userId}`)}
             >
               {firstName} {lastName}
             </Typography>
             <Typography color={medium}>{friends.length} friends</Typography>
           </Box>
         </FlexBetween>
-        <ManageAccountsOutlined />
+        <IconButton>
+          <EditOutlined />
+        </IconButton>
       </FlexBetween>
 
       <Divider />
@@ -94,33 +95,35 @@ const UserWidget = ({ userId, picturePath }) => {
       {/* THIRD ROW */}
       <Box p="1rem 0">
         <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
-          Current Workout Split
+          My Fitness Information
         </Typography>
 
         <FlexBetween gap="1rem" mb="0.5rem">
           <FlexBetween gap="1rem">
-            <img src="../assets/twitter.png" alt="twitter" />
+            <FitnessCenterIcon />
             <Box>
-              <Typography color={main} fontWeight="500">
-                Twitter
+              <Typography color={medium} fontWeight="500">
+                Current Split
               </Typography>
-              <Typography color={medium}>Social Network</Typography>
+              <Typography color={main} fontWeight="500">
+                {split}
+              </Typography>
             </Box>
           </FlexBetween>
-          <EditOutlined sx={{ color: main }} />
         </FlexBetween>
 
-        <FlexBetween gap="1rem">
+        <FlexBetween gap="1rem" mb="0.5rem">
           <FlexBetween gap="1rem">
-            <img src="../assets/linkedin.png" alt="linkedin" />
+            <SportsScoreIcon />
             <Box>
-              <Typography color={main} fontWeight="500">
-                Linkedin
+              <Typography color={medium} fontWeight="500">
+                Fitness Goal
               </Typography>
-              <Typography color={medium}>Network Platform</Typography>
+              <Typography color={main} fontWeight="500">
+                {goal}
+              </Typography>
             </Box>
           </FlexBetween>
-          <EditOutlined sx={{ color: main }} />
         </FlexBetween>
       </Box>
     </WidgetWrapper>

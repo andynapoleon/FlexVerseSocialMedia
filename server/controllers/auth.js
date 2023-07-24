@@ -16,6 +16,8 @@ export const register = async (req, res) => {
       friends,
       location,
       occupation,
+      split,
+      goal,
     } = req.body; // obtain the registered info from the front-end (req.body)
 
     // Password salting and hashing
@@ -43,8 +45,8 @@ export const register = async (req, res) => {
       friends,
       location,
       occupation,
-      viewedProfile: Math.floor(Math.random() * 10000), // just a random number to simply the program
-      impressions: Math.floor(Math.random() * 10000),
+      split,
+      goal,
     });
     const savedUser = await newUser.save();
     res.status(201).json(savedUser); // 201: something has been created - return the response to front-end (savedUser - json format) for further use

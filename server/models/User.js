@@ -35,8 +35,8 @@ const UserSchema = new mongoose.Schema(
     },
     location: String,
     occupation: String,
-    viewedProfile: Number,
-    impressions: Number,
+    split: String,
+    goal: String,
   },
   { timestamps: true }
 );

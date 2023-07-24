@@ -39,11 +39,24 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  console.log(posts);
+  //console.log(posts[0]._id);
 
   return (
+    //<h1>Hello World!</h1>
+    // <PostWidget
+    //   key={posts[0]._id}
+    //   postId={posts[0]._id}
+    //   postUserId={posts[0].userId}
+    //   name={`${posts[0].firstName} ${posts[0].lastName}`}
+    //   description={posts[0].description}
+    //   location={posts[0].location}
+    //   picturePath={posts[0].picturePath}
+    //   userPicturePath={posts[0].userPicturePath}
+    //   likes={posts[0].likes}
+    //   comments={posts[0].comments}
+    //   isProfile={posts[0].isProfile}
+    // />
     <>
-      {/* empty tag */}
       {posts.toReversed().map(
         ({
           _id, // there is some destructring going on in here to get the props of each post
@@ -68,7 +81,6 @@ const PostsWidget = ({ userId, isProfile = false }) => {
             userPicturePath={userPicturePath}
             likes={likes}
             comments={comments}
-            isProfile={isProfile}
           />
         )
       )}

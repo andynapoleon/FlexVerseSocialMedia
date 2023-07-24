@@ -19,7 +19,8 @@ import Friend from "components/Friend";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPost, setPosts } from "state";
+import { setPost } from "state";
+import { useNavigate } from "react-router-dom";
 
 const PostWidget = ({
   postId,
@@ -40,6 +41,7 @@ const PostWidget = ({
   const loggedInUserId = useSelector((state) => state.user._id);
   const isLiked = Boolean(likes[loggedInUserId]); // check if user has liked the post or not
   const likeCount = Object.keys(likes).length; // count the # of keys in the likes json object
+  const navigate = useNavigate();
 
   const { palette } = useTheme();
   const main = palette.neutral.main;
@@ -78,19 +80,14 @@ const PostWidget = ({
 
   // delete a post from the back-end
   const deletePost = async () => {
-    const response = await fetch(
-      `http://localhost:3001/posts/${postId}/delete`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId: loggedInUserId, isProfile: isProfile }),
-      }
-    );
-    const data = await response.json();
-    dispatch(setPosts({ posts: data }));
+    await fetch(`http://localhost:3001/posts/${postId}/delete`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    navigate(0);
   };
 
   const handleFileType = function (picturePath) {

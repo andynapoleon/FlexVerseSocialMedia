@@ -29,6 +29,7 @@ export const createPost = async (req, res) => {
 /* READ */
 export const getFeedPosts = async (req, res) => {
   try {
+    console.log("HELLO");
     const post = await Post.find();
     res.status(200).json(post);
   } catch (err) {
@@ -94,17 +95,11 @@ export const commentPost = async (req, res) => {
 /* DELETE */
 export const deletePost = async (req, res) => {
   try {
-    console.log("hi");
     const { id } = req.params;
-    const { isProfile, userId } = req.body;
     await Post.findByIdAndDelete(id);
-    const posts = [];
-    if (!isProfile) {
-      posts = await Post.find({});
-    } else {
-      posts = await Post.find({ postUserId: userId });
-    }
-    res.status(201).json(posts);
+    const posts = await Post.find();
+    console.log(posts);
+    res.status(200).json(posts);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
