@@ -21,6 +21,8 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
   const isFriend = friends.find((friend) => friend._id === friendId); // is friend or not?
 
+  console.log("isFriend:", isFriend);
+
   // update friends in the back-end
   const patchFriend = async () => {
     // update friend (add friend) => PATCH
@@ -71,7 +73,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
           onClick={() => patchFriend()}
           sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
         >
-          {isFriend ? (
+          {isFriend !== undefined ? (
             <PersonRemoveOutlined sx={{ color: primaryDark }} />
           ) : (
             <PersonAddOutlined sx={{ color: primaryDark }} />

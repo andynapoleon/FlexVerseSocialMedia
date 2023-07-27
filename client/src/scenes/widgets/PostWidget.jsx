@@ -32,7 +32,6 @@ const PostWidget = ({
   userPicturePath,
   likes,
   comments,
-  isProfile,
 }) => {
   const [isComments, setIsComments] = useState(false);
   const [comment, setComment] = useState(""); // comment content
@@ -46,6 +45,11 @@ const PostWidget = ({
   const { palette } = useTheme();
   const main = palette.neutral.main;
   const primary = palette.primary.main;
+
+  // console.log("friendId:", postUserId);
+  // console.log("name:", name);
+  // console.log("_id:", loggedInUserId);
+  // console.log("friends:", friends);
 
   // update likes from the back-end
   const patchLike = async () => {
@@ -76,6 +80,7 @@ const PostWidget = ({
     );
     const updatedPost = await response.json();
     dispatch(setPost({ post: updatedPost }));
+    setComment("");
   };
 
   // delete a post from the back-end
@@ -195,6 +200,7 @@ const PostWidget = ({
             <InputBase
               placeholder="What's on your mind..."
               onChange={(e) => setComment(e.target.value)} // event.target.value => give it to the post
+              value={comment}
               sx={{
                 width: "100%",
                 backgroundColor: palette.neutral.light,
@@ -205,8 +211,8 @@ const PostWidget = ({
               }}
             />
             <Button
-              disabled={!comment} // if the post is not "" (so user has typed in content already)
-              onClick={handleComment} // handle posting sx={{ mt: "0.75rem" }}
+              disabled={!comment} // if the comment is not "" (so user has typed in content already)
+              onClick={handleComment} // handle commenting
               sx={{
                 mt: "0.75rem",
               }}

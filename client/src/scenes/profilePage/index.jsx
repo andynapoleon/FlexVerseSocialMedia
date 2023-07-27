@@ -51,6 +51,7 @@ const ProfilePage = () => {
         </Box>
       </Box>
     </Box>
+    // <h1>Profile Page</h1>
   );
 };
 

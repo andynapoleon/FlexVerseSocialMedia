@@ -109,9 +109,9 @@ const MyPostWidget = ({ picturePath }) => {
           p="1rem"
         >
           <Dropzone
-            acceptedFiles="image/jpeg,image/png,image/jpg,image/JPG"
+            acceptedFiles="jpeg,png,jpg,JPG"
             multiple={false}
-            onDrop={(acceptedFiles) => setImage(acceptedFiles[0])} // set image's state to whatever the user put in
+            onDropAccepted={(acceptedFiles) => setImage(acceptedFiles[0])} // set image's state to whatever the user put in
           >
             {({ getRootProps, getInputProps }) => (
               <FlexBetween>
@@ -124,7 +124,7 @@ const MyPostWidget = ({ picturePath }) => {
                 >
                   <input {...getInputProps()} />
                   {!image ? (
-                    <p>Add Image Here</p>
+                    <p>Add Image Here (.jpg, .jpeg, .png)</p>
                   ) : (
                     <FlexBetween>
                       <Typography>{image.name}</Typography>
@@ -157,7 +157,7 @@ const MyPostWidget = ({ picturePath }) => {
           <Dropzone
             acceptedFiles=".mp4"
             multiple={false}
-            onDrop={(acceptedFiles) => setClip(acceptedFiles[0])} // set image's state to whatever the user put in
+            onDropAccepted={(acceptedFiles) => setClip(acceptedFiles[0])} // set image's state to whatever the user put in
           >
             {({ getRootProps, getInputProps }) => (
               <FlexBetween>
@@ -170,7 +170,7 @@ const MyPostWidget = ({ picturePath }) => {
                 >
                   <input {...getInputProps()} />
                   {!clip ? (
-                    <p>Add Clip Here</p>
+                    <p>Add Clip Here (.mp4)</p>
                   ) : (
                     <FlexBetween>
                       <Typography>{clip.name}</Typography>
@@ -203,7 +203,7 @@ const MyPostWidget = ({ picturePath }) => {
           <Dropzone
             acceptedFiles=".pdf"
             multiple={false}
-            onDrop={(acceptedFiles) => setAt(acceptedFiles[0])} // set image's state to whatever the user put in
+            onDropAccepted={(acceptedFiles) => setAt(acceptedFiles[0])} // set image's state to whatever the user put in
           >
             {({ getRootProps, getInputProps }) => (
               <FlexBetween>
@@ -216,7 +216,7 @@ const MyPostWidget = ({ picturePath }) => {
                 >
                   <input {...getInputProps()} />
                   {!at ? (
-                    <p>Add Attachment Here</p>
+                    <p>Add Attachment Here (.pdf)</p>
                   ) : (
                     <FlexBetween>
                       <Typography>{at.name}</Typography>
