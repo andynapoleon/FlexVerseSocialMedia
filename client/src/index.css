@@ -517,7 +517,7 @@ body,
   padding: 0 25px !important;
 }
 
-/* Scrollbar */
+/* Scrollbar
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -532,4 +532,20 @@ body,
 
 ::-webkit-scrollbar-track:hover {
   background: #051926;
+} */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111818;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a4b45;
+}
+
+::-webkit-scrollbar-track:hover {
+  background: #2a4b45;
 }
