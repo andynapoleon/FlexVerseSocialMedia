@@ -21,6 +21,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "state";
 import { useNavigate } from "react-router-dom";
+import WorkoutTemplate from "components/WorkoutTemplate";
 
 const PostWidget = ({
   postId,
@@ -136,6 +137,8 @@ const PostWidget = ({
             {picturePath}
           </a>
         );
+      } else if (picturePath === "template") {
+        return <WorkoutTemplate />;
       }
     }
     return null;

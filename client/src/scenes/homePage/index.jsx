@@ -9,13 +9,11 @@ import FriendListWidget from "scenes/widgets/FriendListWidget";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-  const { _id, picturePath, friends, firstName } = useSelector(
-    (state) => state.user
-  ); // we can get the user because the user has to be alreayd logged in when they're at HomePage
+  const { _id, picturePath } = useSelector((state) => state.user); // we can get the user because the user has to be alreayd logged in when they're at HomePage
 
-  console.log("name:", firstName);
-  console.log("_id:", _id);
-  console.log("friends:", friends);
+  // console.log("name:", firstName);
+  // console.log("_id:", _id);
+  // console.log("friends:", friends);
   return (
     <Box>
       <Navbar />

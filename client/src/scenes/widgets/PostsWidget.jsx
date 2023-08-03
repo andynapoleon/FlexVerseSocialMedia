@@ -39,10 +39,10 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  //console.log(posts[0]._id);
+  console.log(posts[0]._id);
 
   return (
-    //<h1>Hello World!</h1>
+    // <h1>Hello World!</h1>
     // <PostWidget
     //   key={posts[0]._id}
     //   postId={posts[0]._id}

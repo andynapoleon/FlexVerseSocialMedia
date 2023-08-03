@@ -61,7 +61,7 @@ const Navbar = () => {
             },
           }}
         >
-          FlexVerse 💪
+          💪 FlexVerse
         </Typography>
         {isNonMobileScreens && (
           <FlexBetween fontFamily="Rubik">

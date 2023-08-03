@@ -21,7 +21,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
   const isFriend = friends.find((friend) => friend._id === friendId); // is friend or not?
 
-  console.log("isFriend:", isFriend);
+  // console.log("isFriend:", isFriend);
 
   // update friends in the back-end
   const patchFriend = async () => {

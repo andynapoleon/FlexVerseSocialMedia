@@ -2,7 +2,6 @@ import {
   EditOutlined,
   DeleteOutlined,
   AttachFileOutlined,
-  GifBoxOutlined,
   ImageOutlined,
 } from "@mui/icons-material";
 import {
@@ -14,6 +13,7 @@ import {
   Button,
   IconButton,
 } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
 import FlexBetween from "components/FlexBetween";
 import Dropzone from "react-dropzone";
 import UserImage from "components/UserImage";
@@ -21,6 +21,11 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "state";
+import TableViewIcon from "@mui/icons-material/TableView";
+import { useMediaQuery } from "@mui/material";
+import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
+import { columns, rows } from "data.js";
+import WorkoutTemplate from "components/WorkoutTemplate";
 
 const MyPostWidget = ({ picturePath }) => {
   // React Component
@@ -35,12 +40,15 @@ const MyPostWidget = ({ picturePath }) => {
   // ATTACHMENT STATE
   const [isAt, setIsAt] = useState(false); // switch - has someone opened the image portal to drop an image?
   const [at, setAt] = useState(null); // state to control the image: is it an image or not?
+  // TEMPLATE STATE
+  const [isTemplate, setIsTemplate] = useState(false); // switch - has someone opened the image portal to drop an image?
+  const [template, setTemplate] = useState(null); // state to control the image: is it an image or not?
 
   const [post, setPost] = useState(""); // post content (description)
   const { palette } = useTheme(); // grab the color
   const { _id } = useSelector((state) => state.user); // get user id
   const token = useSelector((state) => state.token); // get user token
-  //const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+  const isNonMobileScreens = useMediaQuery("(min-width: 550px)");
   const mediumMain = palette.neutral.mediumMain;
   const medium = palette.neutral.medium;
 
@@ -76,11 +84,13 @@ const MyPostWidget = ({ picturePath }) => {
     firstDrop,
     setFirstDrop,
     setSecondDrop,
-    setThirdDrop
+    setThirdDrop,
+    setFourthDrop
   ) {
     setFirstDrop(!firstDrop);
     setSecondDrop(false);
     setThirdDrop(false);
+    setFourthDrop(false);
   }
 
   return (
@@ -238,48 +248,111 @@ const MyPostWidget = ({ picturePath }) => {
         </Box>
       )}
 
+      {/* Template CONTROL */}
+      {isTemplate && (
+        <Box
+          border={`1px solid ${medium}`}
+          borderRadius="5px"
+          mt="1rem"
+          p="1rem"
+        >
+          {/* <DataGrid
+            editMode="row"
+            rows={rows}
+            columns={columns}
+            sx={{ minWidth: 500 }}
+          /> */}
+          <WorkoutTemplate />
+        </Box>
+      )}
+
       <Divider sx={{ margin: "1.25rem 0" }} />
 
       <FlexBetween>
         <FlexBetween
           gap="0.25rem"
           onClick={() =>
-            handleDropzone(isImage, setIsImage, setIsClip, setIsAt)
+            handleDropzone(
+              isImage,
+              setIsImage,
+              setIsClip,
+              setIsAt,
+              setIsTemplate
+            )
           }
         >
           <ImageOutlined sx={{ color: mediumMain }} />
-          <Typography
-            color={mediumMain}
-            sx={{ "&:hover": { cursor: "pointer", color: medium } }}
-          >
-            Image
-          </Typography>
+          {isNonMobileScreens && (
+            <Typography
+              color={mediumMain}
+              sx={{ "&:hover": { cursor: "pointer", color: medium } }}
+            >
+              Image
+            </Typography>
+          )}
         </FlexBetween>
 
         <FlexBetween
           gap="0.25rem"
-          onClick={() => handleDropzone(isClip, setIsClip, setIsImage, setIsAt)}
+          onClick={() =>
+            handleDropzone(
+              isClip,
+              setIsClip,
+              setIsImage,
+              setIsAt,
+              setIsTemplate
+            )
+          }
         >
-          <GifBoxOutlined sx={{ color: mediumMain }} />
-          <Typography
-            color={mediumMain}
-            sx={{ "&:hover": { cursor: "pointer", color: medium } }}
-          >
-            Clip
-          </Typography>
+          <VideoLibraryIcon sx={{ color: mediumMain }} />
+          {isNonMobileScreens && (
+            <Typography
+              color={mediumMain}
+              sx={{ "&:hover": { cursor: "pointer", color: medium } }}
+            >
+              Clip
+            </Typography>
+          )}
         </FlexBetween>
 
         <FlexBetween
           gap="0.25rem"
-          onClick={() => handleDropzone(isAt, setIsAt, setIsImage, setIsClip)}
+          onClick={() =>
+            handleDropzone(isAt, setIsAt, setIsImage, setIsClip, setIsTemplate)
+          }
         >
           <AttachFileOutlined sx={{ color: mediumMain }} />
-          <Typography
-            color={mediumMain}
-            sx={{ "&:hover": { cursor: "pointer", color: medium } }}
-          >
-            Attachment
-          </Typography>
+          {isNonMobileScreens && (
+            <Typography
+              color={mediumMain}
+              sx={{ "&:hover": { cursor: "pointer", color: medium } }}
+            >
+              Attachment
+            </Typography>
+          )}
+        </FlexBetween>
+
+        <FlexBetween
+          gap="0.25rem"
+          onClick={() =>
+            handleDropzone(
+              isTemplate,
+              setIsTemplate,
+              setIsImage,
+              setIsClip,
+              setIsAt
+            )
+          }
+        >
+          <TableViewIcon sx={{ color: mediumMain }} />
+          {isNonMobileScreens && (
+            <Typography
+              color={mediumMain}
+              sx={{ "&:hover": { cursor: "pointer", color: medium } }}
+            >
+              Workout Template
+            </Typography>
+          )}
         </FlexBetween>
 
         <Button
