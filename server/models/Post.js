@@ -26,6 +26,10 @@ const postSchema = mongoose.Schema(
       type: Array,
       default: [],
     },
+    postRows: {
+      type: Array,
+      default: [],
+    },
   },
   { timestamps: true }
 );

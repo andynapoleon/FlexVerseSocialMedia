@@ -7,6 +7,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
+  //const rows = useSelector((state) => state.rows); // get template rows
 
   // get all posts on the HomePage
   const getPosts = async () => {
@@ -39,7 +40,8 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  console.log(posts[0]._id);
+  //console.log(posts[posts.length - 1].postRows);
+  //console.log("POSTs:", posts);
 
   return (
     // <h1>Hello World!</h1>
@@ -69,6 +71,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
           userPicturePath,
           likes,
           comments,
+          postRows,
         }) => (
           <PostWidget
             key={_id}
@@ -81,6 +84,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
             userPicturePath={userPicturePath}
             likes={likes}
             comments={comments}
+            postRows={postRows}
           />
         )
       )}

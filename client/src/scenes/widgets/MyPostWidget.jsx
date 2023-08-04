@@ -12,20 +12,21 @@ import {
   useTheme,
   Button,
   IconButton,
+  TextField,
 } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
 import FlexBetween from "components/FlexBetween";
 import Dropzone from "react-dropzone";
 import UserImage from "components/UserImage";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPosts } from "state";
+import { setPosts, setRows } from "state";
 import TableViewIcon from "@mui/icons-material/TableView";
 import { useMediaQuery } from "@mui/material";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
-import { columns, rows } from "data.js";
 import WorkoutTemplate from "components/WorkoutTemplate";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const MyPostWidget = ({ picturePath }) => {
   // React Component
@@ -42,38 +43,78 @@ const MyPostWidget = ({ picturePath }) => {
   const [at, setAt] = useState(null); // state to control the image: is it an image or not?
   // TEMPLATE STATE
   const [isTemplate, setIsTemplate] = useState(false); // switch - has someone opened the image portal to drop an image?
-  const [template, setTemplate] = useState(null); // state to control the image: is it an image or not?
+  const [name, setName] = useState(""); // state to control the image: is it an image or not?
+  const [sets, setSets] = useState(""); // state to control the image: is it an image or not?
+  const [reps, setReps] = useState(""); // state to control the image: is it an image or not?
 
   const [post, setPost] = useState(""); // post content (description)
   const { palette } = useTheme(); // grab the color
   const { _id } = useSelector((state) => state.user); // get user id
   const token = useSelector((state) => state.token); // get user token
+  const rows = useSelector((state) => state.rows); // get template rows
   const isNonMobileScreens = useMediaQuery("(min-width: 550px)");
   const mediumMain = palette.neutral.mediumMain;
   const medium = palette.neutral.medium;
 
+  //console.log(rows);
+
   const handlePost = async () => {
-    const formData = new FormData();
-    formData.append("userId", _id);
-    formData.append("description", post);
+    // const formData = new FormData();
+    // formData.append("userId", _id);
+    // formData.append("description", post);
+    var data = {};
     if (image) {
-      formData.append("picture", image);
-      formData.append("picturePath", image.name);
+      // formData.append("picture", image);
+      // formData.append("picturePath", image.name);
+      data = {
+        userId: _id,
+        description: post,
+        picture: image,
+        picturePath: image.name,
+        postRows: [],
+      };
     } else if (clip) {
-      formData.append("picture", clip);
-      formData.append("picturePath", clip.name);
+      // formData.append("picture", clip);
+      // formData.append("picturePath", clip.name);
+      data = {
+        userId: _id,
+        description: post,
+        picture: clip,
+        picturePath: clip.name,
+        postRows: [],
+      };
     } else if (at) {
-      formData.append("picture", at);
-      formData.append("picturePath", at.name);
+      // formData.append("picture", at);
+      // formData.append("picturePath", at.name);
+      data = {
+        userId: _id,
+        description: post,
+        picture: at,
+        picturePath: at.name,
+        postRows: [],
+      };
+    } else if (isTemplate) {
+      // formData.append("picturePath", "template");
+      // formData.append("postRows", rows);
+      data = {
+        userId: _id,
+        description: post,
+        picturePath: "template",
+        postRows: rows,
+      };
     }
+
+    console.log("ROWS:", data["postRows"]);
 
     const response = await fetch(`http://localhost:3001/posts`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
-      body: formData,
+      body: data,
     });
     const posts = await response.json();
     dispatch(setPosts({ posts }));
+    // const emptyRows = [];
+    // dispatch(setRows({ rows: emptyRows }));
     setImage(null);
     setClip(null);
     setAt(null);
@@ -92,6 +133,27 @@ const MyPostWidget = ({ picturePath }) => {
     setThirdDrop(false);
     setFourthDrop(false);
   }
+
+  function createRow(name, sets, reps) {
+    return { name, sets, reps };
+  }
+
+  // update template
+  const handleTemplate = () => {
+    const row = createRow(name, sets, reps);
+    const newRows = [...rows, row];
+    dispatch(setRows({ rows: newRows }));
+    setName("");
+    setSets("");
+    setReps("");
+  };
+
+  // reset template
+  const handleReset = () => {
+    const newRows = [...rows];
+    newRows.pop();
+    dispatch(setRows({ rows: newRows }));
+  };
 
   return (
     <WidgetWrapper>
@@ -256,13 +318,54 @@ const MyPostWidget = ({ picturePath }) => {
           mt="1rem"
           p="1rem"
         >
-          {/* <DataGrid
-            editMode="row"
-            rows={rows}
-            columns={columns}
-            sx={{ minWidth: 500 }}
-          /> */}
           <WorkoutTemplate />
+          <FlexBetween>
+            <TextField
+              id="standard-basic"
+              label="Exercise"
+              variant="standard"
+              onChange={(e) => setName(e.target.value)} // event.target.value => give it to the table
+              value={name}
+            />
+            <TextField
+              id="standard-basic"
+              label="# of sets"
+              variant="standard"
+              onChange={(e) => setSets(e.target.value)} // event.target.value => give it to the table
+              value={sets}
+            />
+            <TextField
+              id="standard-basic"
+              label="# of reps/seconds"
+              variant="standard"
+              onChange={(e) => setReps(e.target.value)} // event.target.value => give it to the table
+              value={reps}
+            />
+            <Button
+              disabled={!name || !sets || !reps}
+              onClick={handleTemplate} // handle commenting
+              sx={{
+                mt: "1rem",
+              }}
+            >
+              <AddCircleIcon />
+            </Button>
+          </FlexBetween>
+          <FlexBetween
+            style={{
+              flexDirection: "row",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Button
+              onClick={handleReset} // handle commenting
+              sx={{
+                mt: "1rem",
+              }}
+            >
+              <DeleteIcon />
+            </Button>
+          </FlexBetween>
         </Box>
       )}
 

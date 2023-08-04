@@ -7,7 +7,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useSelector } from "react-redux";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -29,8 +28,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function WorkoutTemplate() {
-  const rows = useSelector((state) => state.rows); // get template rows
+export default function StaticWorkoutTemplate({ rows }) {
   return (
     <TableContainer component={Paper} sx={{ mt: "1rem", mb: "1rem" }}>
       <Table sx={{ minWidth: 500 }} aria-label="customized table">

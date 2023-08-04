@@ -21,7 +21,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "state";
 import { useNavigate } from "react-router-dom";
-import WorkoutTemplate from "components/WorkoutTemplate";
+import StaticWorkoutTemplate from "components/StaticWorkoutTemplate";
 
 const PostWidget = ({
   postId,
@@ -33,11 +33,13 @@ const PostWidget = ({
   userPicturePath,
   likes,
   comments,
+  postRows,
 }) => {
   const [isComments, setIsComments] = useState(false);
   const [comment, setComment] = useState(""); // comment content
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
+  //const rows = useSelector((state) => state.rows); // get template rows
   const loggedInUserId = useSelector((state) => state.user._id);
   const isLiked = Boolean(likes[loggedInUserId]); // check if user has liked the post or not
   const likeCount = Object.keys(likes).length; // count the # of keys in the likes json object
@@ -47,7 +49,7 @@ const PostWidget = ({
   const main = palette.neutral.main;
   const primary = palette.primary.main;
 
-  // console.log("friendId:", postUserId);
+  // console.log("friendId:", picture);
   // console.log("name:", name);
   // console.log("_id:", loggedInUserId);
   // console.log("friends:", friends);
@@ -138,7 +140,7 @@ const PostWidget = ({
           </a>
         );
       } else if (picturePath === "template") {
-        return <WorkoutTemplate />;
+        return <StaticWorkoutTemplate rows={postRows} />;
       }
     }
     return null;

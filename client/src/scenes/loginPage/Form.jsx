@@ -12,7 +12,7 @@ import { Formik } from "formik"; // form library
 import * as yup from "yup"; // validation library
 import { useNavigate } from "react-router-dom"; // navigate when they finish register (to login)
 import { useDispatch } from "react-redux"; // store user information - update state
-import { setLogin } from "state"; // redux - user will login
+import { setLogin, setRows } from "state"; // redux - user will login
 import Dropzone from "react-dropzone"; // drop a file or let user drop a file (profive pic)
 import FlexBetween from "components/FlexBetween";
 
@@ -107,6 +107,8 @@ const Form = () => {
           token: loggedIn.token, // set the token
         })
       );
+      const emptyRows = [];
+      dispatch(setRows({ rows: emptyRows }));
       navigate("/home");
     }
   };
