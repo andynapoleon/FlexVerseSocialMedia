@@ -2,12 +2,13 @@ import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import HomePage from "scenes/homePage";
 import LoginPage from "scenes/loginPage";
 import ProfilePage from "scenes/profilePage";
+import EditProfilePage from "scenes/editProfilePage";
+import Chat from "scenes/chatPage";
 import { useMemo } from "react";
 import { useSelector } from "react-redux"; // grab state
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
-import Chat from "scenes/chatPage";
 
 function App() {
   const mode = useSelector((state) => state.mode); // grab a property of state (here is mode)
@@ -45,7 +46,11 @@ function App() {
                   <Navigate to="/" />
                 )
               }
-            ></Route>
+            />
+            <Route
+              path="/editProfile"
+              element={isAuth ? <EditProfilePage /> : <Navigate to="/" />}
+            />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

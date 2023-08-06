@@ -4,20 +4,21 @@ import User from "../models/User.js";
 /* CREATE */
 export const createPost = async (req, res) => {
   try {
-    const { data } = req.body;
-    console.log("Data:", data);
-    const user = await User.findById(data[0]);
+    console.log("BODY", req.body);
+    const { userId, description, picturePath, postRows } = req.body;
+
+    const user = await User.findById(userId);
     const newPost = new Post({
       userId,
       firstName: user.firstName,
       lastName: user.lastName,
       location: user.location,
-      description: data[1],
+      description,
       userPicturePath: user.picturePath,
-      picturePath: data[2],
+      picturePath,
       likes: {},
       comments: [],
-      postRows: data[3],
+      postRows: postRows,
     });
     await newPost.save();
 
@@ -78,6 +79,7 @@ export const likePost = async (req, res) => {
 export const commentPost = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log(Object.keys(req.body));
     const { comment } = req.body;
     const post = await Post.findById(id);
     post.comments.push(comment);

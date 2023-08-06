@@ -78,7 +78,7 @@ const PostWidget = ({
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ comment: comment }),
+        body: JSON.stringify({ comment: comment, nothing: "haha" }),
       }
     );
     const updatedPost = await response.json();

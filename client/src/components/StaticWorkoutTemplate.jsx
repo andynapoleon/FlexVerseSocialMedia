@@ -31,12 +31,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function StaticWorkoutTemplate({ rows }) {
   return (
     <TableContainer component={Paper} sx={{ mt: "1rem", mb: "1rem" }}>
-      <Table sx={{ minWidth: 500 }} aria-label="customized table">
+      <Table sx={{ minWidth: 250 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Exercises</StyledTableCell>
-            <StyledTableCell align="right"># of sets</StyledTableCell>
-            <StyledTableCell align="right">
+            <StyledTableCell sx={{ fontSize: "14px" }}>
+              Exercises
+            </StyledTableCell>
+            <StyledTableCell align="right" sx={{ fontSize: "14px" }}>
+              # of sets
+            </StyledTableCell>
+            <StyledTableCell align="right" sx={{ fontSize: "14px" }}>
               # of reps or seconds
             </StyledTableCell>
           </TableRow>

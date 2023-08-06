@@ -71,7 +71,11 @@ const UserWidget = ({ userId, picturePath }) => {
             <Typography color={medium}>{friends.length} friends</Typography>
           </Box>
         </FlexBetween>
-        <IconButton>
+        <IconButton
+          onClick={() => {
+            navigate(`/editProfile`);
+          }}
+        >
           <EditOutlined />
         </IconButton>
       </FlexBetween>

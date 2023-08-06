@@ -59,43 +59,23 @@ const MyPostWidget = ({ picturePath }) => {
   //console.log(rows);
 
   const handlePost = async () => {
-    // const formData = new FormData();
-    // formData.append("userId", _id);
-    // formData.append("description", post);
+    const formData = new FormData();
+    formData.append("userId", _id);
+    formData.append("description", post);
     var data = {};
     if (image) {
-      // formData.append("picture", image);
-      // formData.append("picturePath", image.name);
-      data = {
-        userId: _id,
-        description: post,
-        picture: image,
-        picturePath: image.name,
-        postRows: [],
-      };
+      formData.append("picture", image);
+      formData.append("picturePath", image.name);
+      formData.append("postRows", []);
     } else if (clip) {
-      // formData.append("picture", clip);
-      // formData.append("picturePath", clip.name);
-      data = {
-        userId: _id,
-        description: post,
-        picture: clip,
-        picturePath: clip.name,
-        postRows: [],
-      };
+      formData.append("picture", clip);
+      formData.append("picturePath", clip.name);
+      formData.append("postRows", []);
     } else if (at) {
-      // formData.append("picture", at);
-      // formData.append("picturePath", at.name);
-      data = {
-        userId: _id,
-        description: post,
-        picture: at,
-        picturePath: at.name,
-        postRows: [],
-      };
+      formData.append("picture", at);
+      formData.append("picturePath", at.name);
+      formData.append("postRows", []);
     } else if (isTemplate) {
-      // formData.append("picturePath", "template");
-      // formData.append("postRows", rows);
       data = {
         userId: _id,
         description: post,
@@ -104,21 +84,37 @@ const MyPostWidget = ({ picturePath }) => {
       };
     }
 
-    console.log("ROWS:", data["postRows"]);
-
-    const response = await fetch(`http://localhost:3001/posts`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}` },
-      body: data,
-    });
-    const posts = await response.json();
-    dispatch(setPosts({ posts }));
-    // const emptyRows = [];
-    // dispatch(setRows({ rows: emptyRows }));
-    setImage(null);
-    setClip(null);
-    setAt(null);
-    setPost("");
+    if (isTemplate) {
+      const response = await fetch(`http://localhost:3001/posts`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const posts = await response.json();
+      dispatch(setPosts({ posts }));
+      setImage(null);
+      setClip(null);
+      setAt(null);
+      setPost("");
+    } else {
+      const response = await fetch(`http://localhost:3001/posts`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          // "Content-Type": "application/json",
+        },
+        body: formData,
+      });
+      const posts = await response.json();
+      dispatch(setPosts({ posts }));
+      setImage(null);
+      setClip(null);
+      setAt(null);
+      setPost("");
+    }
   };
 
   function handleDropzone(
