@@ -85,7 +85,7 @@ const MyPostWidget = ({ picturePath }) => {
     }
 
     if (isTemplate) {
-      const response = await fetch(`http://localhost:3001/posts`, {
+      const response = await fetch(process.env.REACT_APP_BASE_URL + `/posts`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -100,7 +100,7 @@ const MyPostWidget = ({ picturePath }) => {
       setAt(null);
       setPost("");
     } else {
-      const response = await fetch(`http://localhost:3001/posts`, {
+      const response = await fetch(process.env.REACT_APP_BASE_URL + `/posts`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

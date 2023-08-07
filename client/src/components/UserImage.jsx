@@ -11,7 +11,7 @@ const UserImage = ({ image, size = "60px" }) => {
         width={size}
         height={size}
         alt="user"
-        src={`http://localhost:3001/assets/${image}`} // get it from the back-end - image is passed in as a prop
+        src={process.env.REACT_APP_BASE_URL + `/assets/${image}`} // get it from the back-end - image is passed in as a prop
       />
     </Box>
   );

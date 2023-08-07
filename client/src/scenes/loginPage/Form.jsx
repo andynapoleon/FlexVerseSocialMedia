@@ -73,7 +73,7 @@ const Form = () => {
     formData.append("picturePath", values.picture.name); // final key:value pair with picturePath:"picturename" to be a property of the req.body for the back-end to take care of
 
     const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
+      process.env.REACT_APP_BASE_URL + "/auth/register",
       {
         method: "POST",
         body: formData, // send it to the back-end
@@ -89,16 +89,14 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values), // pass the values in directly (values are already formatted in the correct way!)
-    });
-
-    // await fetch("http://localhost:3001/auth/registerChat", {
-    //   method: "POST",
-    //   body: JSON.stringify(values), // send it to the back-end
-    // });
+    const loggedInResponse = await fetch(
+      process.env.REACT_APP_BASE_URL + "/auth/login",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values), // pass the values in directly (values are already formatted in the correct way!)
+      }
+    );
 
     const loggedIn = await loggedInResponse.json(); // get res from back-end as JSON object (two props: user and token)
     onSubmitProps.resetForm();

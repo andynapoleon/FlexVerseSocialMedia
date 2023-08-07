@@ -44,7 +44,7 @@ const Form = () => {
 
   const update = async (values, onSubmitProps) => {
     const savedUserResponse = await fetch(
-      `http://localhost:3001/users/${_id}/updateProfile`,
+      process.env.REACT_APP_BASE_URL + `/users/${_id}/updateProfile`,
       {
         method: "PUT",
         headers: {

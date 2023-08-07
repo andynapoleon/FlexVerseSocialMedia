@@ -56,14 +56,17 @@ const PostWidget = ({
 
   // update likes from the back-end
   const patchLike = async () => {
-    const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId: loggedInUserId }),
-    });
+    const response = await fetch(
+      process.env.REACT_APP_BASE_URL + `/posts/${postId}/like`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: loggedInUserId }),
+      }
+    );
     const updatedPost = await response.json();
     dispatch(setPost({ post: updatedPost }));
   };
@@ -71,7 +74,7 @@ const PostWidget = ({
   // update comments from the back-end
   const handleComment = async () => {
     const response = await fetch(
-      `http://localhost:3001/posts/${postId}/comment`,
+      process.env.REACT_APP_BASE_URL + `/posts/${postId}/comment`,
       {
         method: "PATCH",
         headers: {
@@ -88,7 +91,7 @@ const PostWidget = ({
 
   // delete a post from the back-end
   const deletePost = async () => {
-    await fetch(`http://localhost:3001/posts/${postId}/delete`, {
+    await fetch(process.env.REACT_APP_BASE_URL + `/posts/${postId}/delete`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -112,7 +115,7 @@ const PostWidget = ({
             height="auto"
             alt="post"
             style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-            src={`http://localhost:3001/assets/${picturePath}`}
+            src={process.env.REACT_APP_BASE_URL + `/assets/${picturePath}`}
           />
         );
       } else if (picturePath.includes(".mp4")) {
@@ -125,7 +128,7 @@ const PostWidget = ({
             controls
           >
             <source
-              src={`http://localhost:3001/assets/${picturePath}`}
+              src={process.env.REACT_APP_BASE_URL + `/assets/${picturePath}`}
               type="video/mp4"
             ></source>
           </video>
@@ -134,7 +137,7 @@ const PostWidget = ({
         return (
           <a
             style={{ color: primary }}
-            href={`http://localhost:3001/assets/${picturePath}`}
+            href={process.env.REACT_APP_BASE_URL + `/assets/${picturePath}`}
           >
             {picturePath}
           </a>

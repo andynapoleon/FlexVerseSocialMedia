@@ -24,11 +24,14 @@ const UserWidget = ({ userId, picturePath }) => {
 
   // call to the API (back-end) to get user info
   const getUser = async () => {
-    const response = await fetch(`http://localhost:3001/users/${userId}`, {
-      // getting userId
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` }, // back-end needs the "Bearer" before the token for authorizing the user
-    });
+    const response = await fetch(
+      process.env.REACT_APP_BASE_URL + `/users/${userId}`,
+      {
+        // getting userId
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` }, // back-end needs the "Bearer" before the token for authorizing the user
+      }
+    );
     const data = await response.json(); // get the response (as JSON object) - and this contains User object from back-end
     setUser(data); // set User because data is literally just a User object - so set it to the state
   };
