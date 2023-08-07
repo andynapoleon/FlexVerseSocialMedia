@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Box,
   Button,
@@ -7,12 +6,11 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik"; // form library
 import * as yup from "yup"; // validation library
 import { useNavigate } from "react-router-dom"; // navigate when they finish register (to login)
-import { useDispatch } from "react-redux"; // store user information - update state
-import FlexBetween from "components/FlexBetween";
+import { useSelector, useDispatch } from "react-redux"; // store user information - update state
+import { setUser } from "state"; // redux - user will login
 
 // validation for registration
 const updateSchema = yup.object().shape({
@@ -29,39 +27,31 @@ const updateSchema = yup.object().shape({
 const initialValuesUpdate = {
   firstName: "",
   lastName: "",
-  email: "",
-  password: "",
   location: "",
   occupation: "",
-  picture: "",
   split: "",
   goal: "",
 };
 
 // this is the React Form Component being set up
 const Form = () => {
-  const [pageType, setPageType] = useState("login"); // state is register OR login - display the correct form accordingly
   const { palette } = useTheme();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  const isLogin = pageType === "login"; // boolean value
-  const isRegister = pageType === "register"; // boolean value (always start with "is")
+  const { _id } = useSelector((state) => state.user);
+  const token = useSelector((state) => state.token);
 
   const update = async (values, onSubmitProps) => {
-    // async because we're calling to an API (Formik)
-    // this allows us to send form info with image
-    const formData = new FormData(); // this is a JS API - the form data will be sent as a request body (req.body)
-    for (let value in values) {
-      formData.append(value, values[value]); // like a dictionary: key:value pairs appended (from JSON object)
-    }
-    formData.append("picturePath", values.picture.name); // final key:value pair with picturePath:"picturename" to be a property of the req.body for the back-end to take care of
-
     const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
+      `http://localhost:3001/users/${_id}/updateProfile`,
       {
-        method: "POST",
-        body: formData, // send it to the back-end
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values), // send it to the back-end
       }
     );
 
@@ -69,14 +59,19 @@ const Form = () => {
     onSubmitProps.resetForm(); // onSubmitProps has some functions from Formik that we can use - resetForm() is one of them!
 
     if (savedUser) {
-      setPageType("login");
+      dispatch(
+        setUser({
+          user: savedUser, // pass a JSON object like this to setLogin to get action payload - just a toolkit of Redux
+        })
+      );
+      navigate("/home");
     }
   };
 
   const handleFormSubmit = async (values, onSubmitProps) => {
     // the parameters
-    //await update(values, onSubmitProps);
-    console.log("hihi");
+    await update(values, onSubmitProps);
+    // console.log("hihi");
   };
 
   return (

@@ -61,3 +61,34 @@ export const addRemoveFriend = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
+export const updateProfile = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log("ID:", id);
+    const { firstName, lastName, location, occupation, split, goal } = req.body;
+
+    const update = {
+      firstName: firstName,
+      lastName: lastName,
+      location: location,
+      occupation: occupation,
+      split: split,
+      goal: goal,
+    };
+
+    console.log("UPDATE:", update);
+
+    const savedUser = await User.findOneAndUpdate(
+      { _id: id },
+      { $set: update },
+      {
+        new: true,
+      }
+    );
+
+    res.status(200).json(savedUser);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};

@@ -49,6 +49,9 @@ export const authSlice = createSlice({
     setRows: (state, action) => {
       state.rows = action.payload.rows;
     },
+    setUser: (state, action) => {
+      state.user = action.payload.user;
+    },
   },
 });
 
@@ -61,5 +64,6 @@ export const {
   setPost,
   setUserFriends,
   setRows,
+  setUser,
 } = authSlice.actions;
 export default authSlice.reducer;
