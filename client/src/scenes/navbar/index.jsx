@@ -14,7 +14,6 @@ import {
   Message,
   DarkMode,
   LightMode,
-  Notifications,
   Help,
   Menu,
   Close,
