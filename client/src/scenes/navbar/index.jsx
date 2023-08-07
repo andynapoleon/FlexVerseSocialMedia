@@ -179,9 +179,8 @@ const Navbar = () => {
               )}
             </IconButton>
             <IconButton
-              onClick={() => {
-                navigate(`/chat`);
-                //navigate(0); // this is to refresh the page
+              onClick={function () {
+                alert("Chat Feature is not available on Mobile!");
               }}
             >
               <Message sx={{ fontSize: "25px" }} />
