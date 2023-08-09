@@ -1,1 +1,1 @@
-# fitness-freak-social-media-app
+# FlexVerse Social Media App
