@@ -28,10 +28,10 @@ A MERN-stack social media application for fitness enthusiasts. Special features 
 - Add/Remove a friend.
 - Edit user profile.
 - Create a workout template to share with people.
-- Make a post (image, video, attachment, workout template).
+- Make a post (image, video, attachment and workout template).
 - Delete a post.
 - Like and comment on posts.
-- Chat Feature (chat icon on the Nav Menu) - Create a new chat and add users to start chatting! Group chat and individual DM can be implemented this way.
+- Chat Feature (chat icon on the nav menu) - create a new chat and add users to start chatting! Both group chat and individual DM are done by creating a new chat this way.
 
 
    
