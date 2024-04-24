@@ -4,12 +4,12 @@ A MERN social media application for fitness enthusiasts. Special features includ
 
 ![Screen Shot 2023-08-21 at 11 36 17 AM](https://github.com/andynapoleon/FlexVerse-Social-Media/assets/85133277/cc5f34ef-bf42-419c-98f1-cddff502c8b1)
 
-**Instructions**:
+## Instructions:
 
 1. **Register/Login 🔑:** Start by registering an account and logging in.
    <br>
    <br>
-   IMPORTANT: The server might need some time to load up. Therefore, after clicking the Login/Register button, it might take around 30 seconds to direct you to the app (or back to the login page after you register).
+   IMPORTANT: The server might need some time to load up. Therefore, after clicking the Login/Register button, it might take around 30 seconds to direct you to the app (or back to the login page after you sign up).
    <br>
    <br>
    Sample account:
@@ -27,7 +27,7 @@ A MERN social media application for fitness enthusiasts. Special features includ
 - View a user's feed.
 - Add/Remove a friend.
 - Edit user profile.
-- Create to workout template to share with people.
+- Create a workout template to share with people.
 - Make a post (image, video, attachment, workout template).
 - Delete a post.
 - Like and comment on posts.
