@@ -1,6 +1,6 @@
 # FlexVerse Social Media App
 
-A MERN-stack social media application for fitness enthusiasts. Special features include messaging and creating workout templates. Built using React.js, Redux.js, and MUI on the front end and Node.js, Express.js and MongoDB (with Mongoose) on the back end. Also, ChatEngine API was used for the chat feature.
+A MERN-stack social media application for fitness enthusiasts. Special features include messaging and creating workout templates. Built using React.js, Redux.js, and MUI on the front end and Node.js, Express.js and MongoDB (with Mongoose) on the back end.
 
 ![Screen Shot 2023-08-21 at 11 36 17 AM](https://github.com/andynapoleon/FlexVerse-Social-Media/assets/85133277/cc5f34ef-bf42-419c-98f1-cddff502c8b1)
 
@@ -32,7 +32,7 @@ A MERN-stack social media application for fitness enthusiasts. Special features 
 - Make a post (image, video, attachment and workout template).
 - Delete a post.
 - Like and comment on posts.
-- Chat Feature (chat icon on the nav menu) - create a new chat and add users to start chatting! Both group chat and individual DM are done by creating a new chat this way.
+
 
 
    
