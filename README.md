@@ -1,6 +1,6 @@
 # 💪🌐 FlexVerse Social Media App 🏋️‍♀️📱
 
-FlexVerse is a MERN-stack social media application tailored for fitness enthusiasts. It features messaging capabilities and the ability to create and share workout templates. The app is built using:
+FlexVerse is a MERN-stack social media application tailored for fitness enthusiasts. It features live interaction capabilities and the ability to create and share workout templates. The app is built using:
 
 - **Frontend**: React.js, Redux.js, MUI
 - **Backend**: Node.js, Express.js, MongoDB (with Mongoose)
