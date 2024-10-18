@@ -89,14 +89,14 @@ const Navbar = () => {
               <LightMode sx={{ color: dark, fontSize: "25px" }} />
             )}
           </IconButton>
-          <IconButton
+{/*           <IconButton
             onClick={() => {
               navigate(`/chat`);
               //navigate(0); // this is to refresh the page
             }}
           >
             <Message sx={{ fontSize: "25px" }} />
-          </IconButton>
+          </IconButton> */}
           <a
             href="https://github.com/andynapoleon/fitness-freak-social-media-app/tree/main#readme"
             target="_blank"

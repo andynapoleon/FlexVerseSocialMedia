@@ -1,37 +1,40 @@
-# FlexVerse Social Media App
+# 💪🌐 FlexVerse Social Media App 🏋️‍♀️📱
 
-A MERN-stack social media application for fitness enthusiasts. Special features include messaging and creating a workout template. Built using React.js, Redux.js, and MUI on the front end and Node.js, Express.js and MongoDB (with Mongoose) on the back end. Also, ChatEngine API was used for the chat feature.
+FlexVerse is a MERN-stack social media application tailored for fitness enthusiasts. It features live interaction capabilities and the ability to create and share workout templates. The app is built using:
 
-![Screen Shot 2023-08-21 at 11 36 17 AM](https://github.com/andynapoleon/FlexVerse-Social-Media/assets/85133277/cc5f34ef-bf42-419c-98f1-cddff502c8b1)
+- **Frontend**: React.js, Redux.js, MUI
+- **Backend**: Node.js, Express.js, MongoDB (with Mongoose)
 
-## Instructions:
+![App Screenshot](https://github.com/andynapoleon/FlexVerse-Social-Media/assets/85133277/cc5f34ef-bf42-419c-98f1-cddff502c8b1)
 
-1. **Register/Login 🔑:** Start by registering an account and logging in.
-   <br>
-   <br>
-   IMPORTANT: The server might need some time to load up. Therefore, after clicking the Login/Register button, it might take around 30 seconds to direct you to the app (or back to the login page after you sign up).
-   <br>
-   <br>
-   Sample account:
-   <br>
-      username: jaycutler@ifbbpro.com
-   <br>
-      password: Test123
+## 📋 Instructions
 
-![Screen Shot 2023-08-21 at 11 40 12 AM](https://github.com/andynapoleon/FlexVerse-Social-Media/assets/85133277/d579d546-e8a7-43a9-b2d9-b0db581e8eac)
-![Screen Shot 2023-08-21 at 11 33 31 AM](https://github.com/andynapoleon/FlexVerse-Social-Media/assets/85133277/1a21590d-793d-450a-99c2-fc9577d80365)
+### 🔑 **1. Register/Login**
 
-2. **All Features Available 💡:**
+To get started, register for an account and log in. 
 
-- Dark Mode.
-- View a user's feed.
-- Add/Remove a friend.
-- Edit user profile.
-- Create a workout template to share with people.
-- Make a post (image, video, attachment and workout template).
-- Delete a post.
-- Like and comment on posts.
-- Chat Feature (chat icon on the nav menu) - create a new chat and add users to start chatting! Both group chat and individual DM are done by creating a new chat this way.
+**IMPORTANT**: The server may take a few moments to initialize. After clicking the Login/Register button, it might take around 30 seconds to redirect you to the app (or back to the login page if you sign up).
 
+**Sample account:**
+- **Username**: jaycutler@ifbbpro.com
+- **Password**: Test123
 
-   
+![Login Page](https://github.com/andynapoleon/FlexVerse-Social-Media/assets/85133277/d579d546-e8a7-43a9-b2d9-b0db581e8eac)
+![User Feed](https://github.com/andynapoleon/FlexVerse-Social-Media/assets/85133277/1a21590d-793d-450a-99c2-fc9577d80365)
+
+### 💡 **2. All Features Available**
+
+- **🌑 Dark Mode**: Switch to a dark theme for a more comfortable viewing experience.
+- **📜 User Feed**: View and interact with posts on a user's feed.
+- **👥 Friends**: Add or remove friends to manage your social connections.
+- **✏️ Profile Editing**: Update and personalize your user profile.
+- **🏋️ Workout Templates**: Create, share, and explore workout templates.
+- **🖼️ Posts**: Make posts including images, videos, attachments, and workout templates.
+- **🗑️ Delete Posts**: Remove posts from your feed.
+- **👍 Likes & 💬 Comments**: Engage with posts by liking and commenting.
+
+Feel free to explore and enjoy the features of FlexVerse! If you encounter any issues or have suggestions, please open an issue or contribute to the project.
+
+---
+
+Happy fitness journey! 💪🍌
